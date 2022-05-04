@@ -477,6 +477,620 @@ class Hanoi(Vietnam):
 VietnamVodich = Vietnam()
 NguoiHanoi = Hanoi()
 
+# bai 52 20Apr2022
+# Định nghĩa một class có tên là Circle có thể được xây dựng từ bán kính. Circle có một method có thể tính diện tích.
+class Circle(object):
+    def __init__(self,r):
+        self.radius = r
+    def dientich(self):
+        return 3.14*self.radius**2
+tempCircle = Circle(3)
+print('bai 52:', tempCircle.dientich())
+
+# bai 53
+# Định nghĩa class có tên là Hinhchunhat được xây dựng
+# bằng chiều dài và chiều rộng.
+# Class Hinhchunhat có method để tính diện tích
+class Hinhchunhat(object):
+    def __init__(self,dai,rong):
+        self.dai = dai
+        self.rong = rong
+    def dientich(self):
+        return self.dai*self.rong
+tempHinhchunhat = Hinhchunhat(2,3)
+print('bai 53:', tempHinhchunhat.dientich())
+
+# bai 54
+# Định nghĩa một class có tên là Shape và class con là Square.
+# Square có hàm init để lấy đối số là chiều dài.
+# Cả 2 class đều có hàm area để in diện tích của hình, diện tích mặc định của Shape là 0.
+class Shape(object):
+    def __init__(self):
+        pass
+    def dientich(self):
+        return 0
+class Square(Shape):
+    def __init__(self,l):
+        Shape.__init__(self)
+        self.length = l
+    def dientich(self):
+        return self.length*self.length
+tempSquare = Square(5)
+print('bai 54:', tempSquare.dientich())
+
+# bai 55
+# Đưa ra một RuntimeError exception.
+# cai nay se quang ra exception
+# raise RuntimeError('something wrong')
+#cach ko quang ca exception , chi quang ra print voi exception
+class RuntimeError(Exception):
+    def __init__(self, mismatch):
+       Exception.__init__(self, mismatch)
+try:
+    print ("Bai 55a: And now, the Vocational Guidance Counsellor Sketch.")
+    raise RuntimeError("Does not have proper hat, let see")
+    print ("Bai 55c: This print statement will not be reached.")
+except RuntimeError as problem:
+    print ("Bai 55b: Vocation problem: {0}".format(problem))
+
+# bai 56 21Apr2022
+# Viết hàm để tính 5/0 và sử dụng try/exception để bắt lỗi.
+def bai56(num):
+    try:
+        num/0
+    except ZeroDivisionError:
+        print('bai 56a: chia mot so cho 0')
+    except Exception as problem:
+        print('bai 56b: bat duoc mot exception')
+    finally:
+        print('bai 56c: Phep tinh bi huy')
+bai56(10)
+
+# bai 57
+# Định nghĩa một class exception tùy chỉnh, nhận một thông báo là thuộc tính.
+class myErr(Exception):
+    def __init__(self, inmsg):
+        self.msg = inmsg
+error = myErr('Bai 57: Dien gi vao day')
+print(error)
+
+# bai 58
+# Giả sử rằng chúng ta có vài địa chỉ email dạng username@companyname.com,
+# hãy viết một chương trình để in username của địa chỉ email cụ thể.
+# Cả username và companyname chỉ bao gồm chữ cái.
+# emailAdd = 'ltran43coder'
+# pat2 = "(\w+)@((\w+\.)+(com))"
+# re2 = re.match(pat2,emailAdd)
+# print (re2.group(1))
+# AttributeError: 'NoneType' object has no attribute 'group'
+
+def bai58(email):
+    try:
+        pat2 = "(\w+)@((\w+\.)+(com))"
+        re2 = re.match(pat2, email)
+        print('Bai 58:', re2.group(1))
+        print('Bai 59:', re2.group(2))
+    except AttributeError:
+        print('bai 58,59: ',email, ' email khong dung dinh dang')
+    except Exception as problem:
+        print('bai 58b,59b: bat duoc mot exception')
+bai58('ltran43coder@gmail.com')
+
+# bai 60 regex
+# Viết một chương trình chấp nhận chuỗi từ được phân tách bằng khoảng trống và in các từ chỉ gồm chữ số.
+s = 'Nhu the nao la dung 1, nhu the nao 2 la sai 4'
+print (re.findall("\d+",s))
+print (re.findall("\w+",s))
+
+# bai 61 ???
+# In chuỗi Unicode "Hello world".
+unicodeString = u"Thế này là thế nào"
+str1 = "Thế này là thế nào"
+print(unicodeString)
+print(str1)
+
+# bai 62
+# Viết chương trình để đọc chuỗi ASCII và chuyển đổi nó sang một chuỗi Unicode được mã hóa bằng UTF-8.
+en= str.encode('utf-8')
+print(en)
+de = en.decode()
+print(de)
+
+# bai 64
+# Viết một chương trình tính 1/2 + 2/3 + 3/4 + ... + n/(n + 1) với một n là số được nhập vào (n> 0).
+# Ví dụ, nếu n là số sau đây được nhập vào:
+# 5
+# Thì đầu ra phải là:
+# 3.55
+def bai64(num):
+    if num<=0:
+        return "Vui lòng nhập số > 0"
+    else:
+        sum= 0.0
+        for each in range(1,num+1):
+            sum += float(float(each)/(each+1))
+        return sum
+print('bai 64:',bai64(10))
+
+# bai 65
+# Viết chương trình tính: f(n)=f(n-1)+100 khi n>0 và f(0)=1, với n là số được nhập vào (n>0).
+# Ví dụ: Nếu n được nhập vào là 5 thì đầu ra phải là 500.
+def bai65(num):
+    if num < 0:
+        return "Vui lòng nhập số >= 0"
+    else:
+        sum = 0
+        if num == 0:
+            return 1
+        else:
+            for each in range(1,num+1):
+                sum += 100
+            return sum
+print('bai 65:', bai65(0))
+print('bai 65:', bai65(10))
+
+# bai 66
+# Dãy Fibonacci được tính dựa trên công thức sau:
+# f(n)=0 nếu n=0
+# f(n)=1 nếu n=1
+# f(n)=f(n-1)+f(n-2) nếu n>1
+# Hãy viết chương trình tính giá trị của f(n) với n là số được người dùng nhập vào.
+# Ví dụ: Nếu n được nhập vào là 7 thì đầu ra của chương trình sẽ là 13.
+# def f(n):
+#     if n == 0: return 0
+#     elif n == 1: return 1
+#     else: return f(n-1)+f(n-2)
+def fibo(n):
+    result = 0
+    if n < 0:
+        return -1
+    else:
+        if n == 0:
+            result = 0
+        else:
+            if n == 1:
+                result = 1
+            else:
+                result = fibo(n-1) + fibo(n-2)
+        return result
+# 0 1 2 3 4 5 6 7     8   9   10  11  12  13  14  15  16  17  18  19  20
+# 0 1 1 2 3 5 8 13    21  34  55  89  144
+print('bai 66b:',fibo(12))
+
+# bai 67
+# cung fibo nhưng in ra list
+# Hãy viết chương trình sử dụng list
+# comprehension để in dãy Fibonacci dưới dạng tách biệt bằng dấu ",", n được người dùng nhập vào.
+# TypeError: 'str' object is not callable => ko dc viet str = vì str la` 1 ham trong python
+n = 12
+temp = [str(fibo(x)) for x in range(0, n+1)]
+# temp = []
+# for x in range(0,n+1):
+#     temp.append(str(fibo(x)))
+print(",".join(temp))
+
+# bai 68
+# Viết chương trình sử dụng generator để in số chẵn trong khoảng từ 0 đến n, cách nhau bởi dấu phẩy, n là số được nhập vào.
+# Ví dụ nếu n=10 được nhập vào thì đầu ra của chương trình là: 0,2,4,6,8,10
+temp = []
+def sochan(n):
+    for each in range(0,n+1):
+        if each%2 == 0:
+            temp.append(str(each))
+    print(','.join(temp))
+sochan(15)
+
+# bai 69
+# Viết chương trình sử dụng generator để in số chia hết cho 5 và 7 giữa 0 và n,
+# cách nhau bằng dấu phẩy, n được người dùng nhập vào.
+# Ví dụ: Nếu n=100 được nhập vào thì đầu ra của chương trình là: 0,35,70.
+def NumGenerator(n):
+    for i in range(n+1):
+        if i%5==0 and i%7==0:
+            yield i
+values = []
+n = 100
+for i in NumGenerator(n):
+    values.append(str(i))
+print ("69 Các số chia hết cho 5 và 7 trong khoảng 0 và n là: ",",".join(values))
+
+# bai 70
+# Viết các lệnh assert để xác minh rằng tất cả các số trong list [2,4,6,8] là chẵn.
+li = [2,4,6,8,10]
+for i in li:
+ assert i%2==0
+
+# bai 71
+# Viết chương trình chấp nhận biểu thức toán học cơ bản do người
+# dùng nhập vào từ bảng điều khiển và in kết quả ước lượng ra ngoài màn hình.
+# Ví dụ: Nếu chuỗi sau là đầu vào của chương trình:
+# 35 + 3
+expression = '34+3-15'
+print('bai 71:', expression, '=', eval(expression))
+
+# bai 72
+# tim kiem nhi phan
+def bin_search(li, element):
+    print('Danh sach la:', li)
+    bottom = 0
+    top = len(li)-1
+    index = -1
+    while top>=bottom and index==-1:
+        mid = int(math.floor((top+bottom)/2.0))
+        if li[mid]==element:
+            index = mid
+        elif li[mid]>element:
+            top = mid-1
+        else:
+            bottom = mid+1
+    if (index == -1):
+        return 'Khong tim thay ', element
+    else:
+        return element, ' nam o vi tri la:', index
+li=[2,5,7,19,111,27,222]
+print (bin_search(li,11))
+print (bin_search(li,222))
+
+# Bài 73:
+# Yêu cầu:
+# Tạo một số thập phân ngẫu nhiên, có giá trị nằm trong khoảng từ 10 đến 100 bằng cách sử dụng module math của Python.
+# Sử dụng random.random() để tạo float ngẫu nhiên trong [0,1].
+import random
+print ('Bai 73:', random.random()*100)
+
+# bai 74
+# random so trong khoang tu 5-95
+def bai74():
+    result = 0
+    rand = random.random()*100
+    if rand < 5:
+        result = rand + 5
+    elif rand > 95:
+        result = rand - 5
+    else:
+        result = rand
+    return result
+print('bai 74:', bai74())
+
+# bai 75:
+# Viết chương trình xuất ra một
+# số chẵn/le ngẫu nhiên trong khoảng 0 đến 15 (bao gồm cả 0 và 15), sử dụng module random và list comprehension.
+print (random.choice([i for i in range(16) if i%2==0]))
+print (random.choice([i for i in range(16) if i%2==1]))
+
+# bai 76
+# Vui lòng viết chương trình để xuất một số ngẫu nhiên,
+# chia hết cho 5 và 7, từ 0 đến 200 (gồm cả 0 và 200), sử dụng module random và list comprehension.
+print (random.choice([i for i in range(201) if i%5==0 and i%7==0]))
+
+# bai 77
+# Vui lòng viết chương trình để tạo một list với 3 số ngẫu nhiên từ 100 đến 150.
+print (random.sample(range(100,151), 3))
+
+# bai 78
+# Viết chương trình tạo ngẫu nhiên list gồm 5 số chẵn nằm trong đoạn [100;150].
+print (random.sample([i for i in range(100,151) if i%2==0], 5))
+
+# bai 79
+# Viết chương trình để tạo ngẫu nhiên một list gồm 5 số, chia hết cho 5 và 7, nằm trong đoạn [1;1000].
+print (random.sample([i for i in range(1,1001) if i%5==0 and i%7==0], 5))
+
+# bai 80
+# Viết chương trình để in một số nguyên ngẫu nhiên từ 7 đến 15
+print(random.randint(7,16))
+print(random.randrange(7,16))
+
+# bai 81
+# compress decompress py2
+# encode decode p3
+import zlib
+s = "hello world!hello world!hello world!hello world!"
+t = zlib.compress(s.encode("utf-8"))
+print (t)
+print (zlib.decompress(t))
+
+# bai 82
+# Bạn hãy viết một chương trình để in thời gian thực thi (running time of execution) phép tính "1+1" 100 lần.
+from timeit import Timer
+t = Timer("for i in range(10):1+1")
+print (t.timeit())
+
+# bai 83
+# Viết chương trình để trộn và in list [3,6,7,8].
+# Sử dụng shuffle() để trộn list.
+from random import shuffle
+li = [3,16,27,38,49]
+shuffle(li)
+print('bai 83:',li)
+
+# bai 84
+# Viết một chương trình để tạo
+# tất cả các câu có chủ ngữ nằm trong ["Anh","Em"], động từ nằm trong ["Chơi","Yêu"]
+# và tân ngữ là ["Bóng đá","Xếp hình"].
+chu_ngu=["Anh","Em"]
+dong_tu=["Chơi","Yêu"]
+tan_ngu=["Bóng đá","Xếp hình"]
+# Code by Quantrimang.com
+for i in range(len(chu_ngu)):
+    for j in range(len(dong_tu)):
+        for k in range(len(tan_ngu)):
+            cau = "%s %s %s." % (chu_ngu[i], dong_tu[j], tan_ngu[k])
+            print (cau)
+
+# bai 85
+# Viết chương trình in list sau khi xóa các số chẵn trong [5,6,77,45,22,12,24].
+li = [5,6,77,45,22,12,24]
+li = [x for x in li if x%2==1]
+print(li)
+
+# bai 86
+# Sử dụng list comprehension để viết chương trình in list
+# sau khi đã loại bỏ các số chia hết cho 5 và 7 trong [12,24,35,70,88,120,155].
+li = [12,24,35,70,88,120,155]
+li = [x for x in li if not (x%5==0 and x%7==0) ]
+print('bai 86:', li)
+
+# bai 87
+# Viết chương trình in list sau khi đã xóa số thứ 0, thứ 2, thứ 4, thứ 6 trong [12,24,35,70,88,120,155]
+li = [12,24,35,70,88,120,155]
+a= [x for i,x in enumerate(li) if i%2!=0]
+b= [x for i,x in enumerate(li) if i%2==0]
+print ('bai 87a:', a)
+print ('bai 87b:', b)
+
+# bai 88
+# Viết chương trình tạo mảng 3D 2*3*4 có mỗi phần tử là 1.
+bai88 = [[ [1 for col in range(4)] for col in range(3)] for row in range(2)]
+print ('bai 88:', bai88)
+
+# bai 89
+# Viết chương trình in list sau khi đã xóa số ở vị trí thứ 0, thứ 5,
+# trong [12,24,35,70,88,120,155].
+li = [12,24,35,70,88,120,155]
+a= [x for i,x in enumerate(li) if not (i%5==0)]
+print ('bai 89:', a)
+
+# bai 90
+# Viết chương trình in list sau khi đã xóa giá trị 24 trong [12,24,35,24,88,120,155].
+li = [12,24,35,24,88,24,155]
+a= [x for x in li if (x!=24)]
+print ('bai 90:', a)
+
+# bai 91
+# Với 2 list cho trước: [1,3,6,78,35,55] và [12,24,35,24,88,120,155],
+# viết chương trình để tạo list có phần tử là giao của 2 list đã cho.
+list1=set([12,3,6,78,35,55,120,1])
+list2=set([12,24,35,24,88,120,155,1])
+list1 &= list2
+li=list(list1)
+print ('bai 91:', li)
+
+# bai 92
+# Viết chương trình in list từ list [12,24,35,24,88,120,155,88,120,155], sau khi đã xóa hết các giá trị trùng nhau.
+def xoaTrung( li ):
+    list_moi=[]
+    xem = set()
+    for i in li:
+        if i not in xem:
+            xem.add( i )
+            list_moi.append(i)
+    return list_moi
+li=[12,12,15,24,35,35,24,88,120,155,88,120,155]
+print ("Bai 92: List sau khi xóa giá trị trùng là:",xoaTrung(li))
+
+# bai 93
+# Định nghĩa class Nguoi và 2 class con của nó: Nam, Nu.
+# Tất cả các class có method "getGender" có thể in "Nam" cho class Nam và "Nữ" cho class Nu.
+class Nguoi(object):
+    def getGender(self):
+        return "Unknown"
+class Nam(Nguoi):
+    def getGender(self):
+        return "Nam"
+class Nu(Nguoi):
+    def getGender(self):
+        return "Nữ"
+aNam = Nam()
+aNu= Nu()
+print (aNam.getGender())
+print (aNu.getGender())
+
+# bai 94
+# Viết chương trình đếm và in số ký tự của chuỗi do người dùng nhập vào.
+dic = {}
+chuoi="chuoi la gi"
+for c in chuoi:
+    dic[c] = dic.get(c,0)+1
+print ('\n'.join(['%s,%s' % (k, v) for k, v in dic.items()]))
+
+# bai 95
+# Viết chương trình nhận chuỗi đầu vào từ giao diện điều khiển và in nó theo thứ tự ngược lại.
+# Ví dụ nếu chuỗi nhập vào là:
+# i love you
+# Thì kết quả đầu ra là:
+# uoy evol i
+chuoi = "baba yeu me va lila nhat tren doi"
+chuoi = chuoi[::-1]
+print (chuoi)
+
+# bai 96
+# Viết chương trình nhận chuỗi do người dùng nhập vào và in các ký tự có chỉ số chẵn.
+# Ví dụ: Nếu chuỗi sau được nhập vào: q1u2a3n4t5r6i7m8a9n4g5.6c7o8m, thì đầu ra sẽ là: quantrimang.com.
+# Sử dụng list[::2] để lặp list cách 2 vị trí.
+chuoi = "q1u2a3n4t5r6i7m8a9n4g5.6c7o8mabcd"
+chuoi = chuoi[::2]
+print (chuoi)
+
+# bai 97
+# Viết chương trình in tất cả các hoán vị của [1,2,3].
+import itertools
+print (list(itertools.permutations([1,2,3])))
+
+# bai 98
+# Viết chương trình để giải 1 câu đố cổ của Trung Quốc:
+# Một trang trại thỏ và gà có 35 đầu, 94 chân, hỏi số thỏ và gà là bao nhiêu?
+# pp vet can
+def giai(dau,chan):
+    klg='Không có dáp án phù hợp!'
+    for i in range(dau+1):
+        tho=dau-i
+        if 2*i+4*tho==chan:
+            return i,tho
+    return klg,klg
+dau=35
+chan=94
+dap_an=giai(dau,chan)
+print (dap_an)
+
+# 101 time, 104
+# Trả về ngày giờ hiện tại với format dd-mm-yyyy
+from datetime import datetime
+toda = datetime.today()
+tod = toda.strftime('%d-%m-%Y')
+year1 = toda.year
+month1 = toda.month
+day1 = toda.day
+print('101 toda:', toda)
+print('101 tod:', tod)
+# co gi ben trong datetime
+print(dir(datetime))
+
+# cap nhat date
+from datetime import date
+a = date(2022, 4, 30)
+print('102 date:', a)
+
+# date from timestamp
+timestamp = date.fromtimestamp(1551916800)
+print("103 Date =", timestamp)
+
+# 105 in gio phut giay
+from datetime import time
+a = time(11, 34, 56)
+print("hour =", a.hour)
+print("minute =", a.minute)
+print("second =", a.second)
+print("microsecond =", a.microsecond)
+from datetime import datetime
+#datetime được truyền ở dạng 'year, month, day'.
+a = datetime(2019, 3, 7)
+print(a)
+# datetime được truyền ở dạng 'year, month, day, hour, minute, second, microsecond'
+b = datetime(2019, 3, 7, 23, 55, 59, 342380)
+print(b)
+
+# bai 106 2May2022
+# Khoảng thời gian chênh lệch giữa 2 đối tượng timedelta
+from datetime import timedelta
+t1 = timedelta(weeks = 2, days = 5, hours = 1, seconds = 33)
+t2 = timedelta(days = 4, hours = 11, minutes = 4, seconds = 54)
+t3 = t1 - t2
+print("bai 106 t3 =", t3)
+
+# 107 Xử lý timedelta mang giá trị âm
+t1 = timedelta(seconds = 33)
+t2 = timedelta(seconds = 54)
+t3 = t1 - t2
+print("t3 =", t3)
+print("t3 =", abs(t3))
+
+# chuyen doi theo giay 108
+t = timedelta(days = 5, hours = 1, seconds = 33, microseconds = 233423)
+print("tong so giay =", t.total_seconds())
+
+# dinh dang datetime 109
+from datetime import datetime
+# ngày giờ hiện tại
+now = datetime.now()
+t = now.strftime("%H:%M:%S")
+print("time:", t)
+s1 = now.strftime("%m/%d/%Y, %H:%M:%S")
+# định dạng mm/dd/YY H:M:S
+print("s1:", s1)
+s2 = now.strftime("%d/%m/%Y, %H:%M:%S")
+# định dạng dd/mm/YY H:M:S
+print("s2:", s2)
+
+# strptime() - phân tích một string thành thời gian 110
+from datetime import datetime
+date_string = "30 MAy, 2022"
+print("date_string =", date_string)
+date_object = datetime.strptime(date_string, "%d %B, %Y")
+print("date_object =", date_object)
+
+# 111 4May2022
+# mui gio
+from datetime import datetime
+import pytz
+
+local = datetime.now()
+print("Local:", local.strftime("%m/%d/%Y, %H:%M:%S"))
+
+tz_NY = pytz.timezone('America/New_York')
+datetime_NY = datetime.now(tz_NY)
+print("NY:", datetime_NY.strftime("%m/%d/%Y, %H:%M:%S"))
+
+tz_London = pytz.timezone('Europe/London')
+datetime_London = datetime.now(tz_London)
+print("London:", datetime_London.strftime("%m/%d/%Y, %H:%M:%S"))
+
+# xu ly bo qua loi bang lenh pass 112
+def add(a, b):
+    try:
+        print('bai 112: ',a + b)
+    except Exception as e:
+        pass
+        print("bai 112: co loi nhung bo qua")
+add(11, 1)
+add("x", 1)
+
+# list comprehension
+# code dai chuyen thanh 1 dong code
+letters = ['a', 'b', 'c', 'd']
+print(letters)
+upper_letters = []
+for letter in letters:
+    result = letter.upper()
+    upper_letters.append(result)
+print('112 dai: ', upper_letters)
+
+upper_letters = [x.upper() for x in letters]
+print('112 ngan hon:', upper_letters)
+
+# List Comprehension rất tuyệt nhưng không phải
+# trường hợp nào cũng có thể sử dụng nó. Bạn không nên sử dụng nó khi có nhiều hơn một điều kiện.
+
+# letters = ['a', 'b', 'c', 'd', 2]
+# print(letters)
+# upper_letters = [x.upper() for x in letters]
+# print(upper_letters)
+
+# se bao loi
+# day la cach chuyen thanh code work ko loi
+letters = ['a', 'b', 'c', 'd', 1]
+print(letters)
+upper_letters = []
+for letter in letters:
+    try:
+        result = letter.upper()
+        upper_letters.append(result)
+    except AttributeError:
+        pass # do nothing
+print(upper_letters)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
